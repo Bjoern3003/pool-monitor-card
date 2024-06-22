@@ -44,6 +44,37 @@ const translations = {
       "days": `{days} day{plural} ago`
     }
   },
+  'de': {
+    "state": {
+      "1": "Zu niedrig",
+      "2": "Akzeptabler Tiefstwert",
+      "3": "Ideal",
+      "4": "Ideal",
+      "5": "Akzeptabler Hochwert",
+      "6": "Zu hoch"
+    },
+    "sensor": {
+      "temperature": "Temperatur",
+      "temperature_2": "Temperatur 2",
+      "ph": "pH",
+      "orp": "ORP",
+      "tds": "TDS",
+      "salinity": "Salzgehalt",
+      "cya": "Cyanursäure",
+      "calcium": "Kalzium",
+      "phosphate": "Phosphat",
+      "alkalinity": "Alkalinität",
+      "free_chlorine": "Freies Chlor",
+      "total_chlorine": "Gesamtchlor",
+      "pressure": "Sandfilterdruck"
+    },
+    "time": {
+      "seconds": "gerade erst",
+      "minutes": `{minutes} minute{plural} ago`,
+      "hours": `{hours} hour{plural} ago`,
+      "days": `{days} day{plural} ago`
+    }
+  },
   'fr': {
     "state": {
       "1": "Trop bas",
@@ -177,18 +208,22 @@ class PoolMonitorCard extends LitElement {
   .pool-monitor-container-marker .marker {
     text-align: center;
     justify-self: center;
-    width: 40px;
     height:20px;
-    padding-top:5px;
+    padding:0.35rem .3rem 0 .3rem;
     border-radius: 5px;
     position: absolute;
     z-index: 1;
+    white-space: nowrap;
   }
   
   .pool-monitor-container-marker .marker-state {
     width: 60px;
     position: absolute;
     z-index: 1;
+    white-space: nowrap;
+    top: 50%;
+    transform: translate(0, -50%);
+    color: #c1c1c1;
   }
 
   .pool-monitor-container-marker .triangle {
@@ -197,8 +232,9 @@ class PoolMonitorCard extends LitElement {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     position: absolute;
-    bottom: 0px;
-    transform: translateX(-50%);
+    bottom: -10px;
+    left: 50%;
+    transform: translate(-50%);
   }
 
   .grid-item {
@@ -575,9 +611,8 @@ class cardContent {
           PoolMonitorCard._moreinfo(data.entity)}>   
 
         <div class="pool-monitor-container-marker" >
-          <div class="marker" style="background-color: ${data.color} ;color: black;left: ${data.pct-5}%;">${data.value}</div>
+          <div class="marker" style="background-color: ${data.color} ;color: #eee;left: ${data.pct-5}%;">${data.value} ${data.unit}<div class="triangle" style="border-top: 10px solid ${data.color} ;"></div></div>
           <div class="marker-state" style="padding-${data.side_align}:40px;text-align:${data.side_align};background-color:transparent ;${data.side_align}: ${data.pct_state_step}%;">${data.state}</div>
-          <div class="triangle" style="border-top: 10px solid ${data.color} ;left: ${data.pct-1}%;"></div>
         </div>
         <div class="pool-monitor-entity-img"><img src="${data.img_src}"></div>
         <div class="pool-monitor-container">
